@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const Numeric = ({ answer, setAnswer }) => (
   <div>
     <h3>Numeric Answer</h3>

@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const MCQ = ({ options, setOptions, correctOption, setCorrectOption }) => {
   const handleOptionChange = (index, value) => {
     const newOptions = [...options];
@@ -8,10 +9,10 @@ const MCQ = ({ options, setOptions, correctOption, setCorrectOption }) => {
   };
 
   return (
-    <div>
+    <div className='mcq-options'>
       <h3>MCQ Options</h3>
       {options.map((option, index) => (
-        <div key={index}>
+        <div className='option' key={index}>
           <label>Option {index + 1}:</label>
           <input 
             type="text" 

@@ -3,6 +3,8 @@ import MCQ from './MCQ';
 import FIB from './FIB';
 import Numeric from './Numeric';
 import QuestionList from './QuestionList';
+import "./Style.css"
+
 
 const TeacherQuestions = () => {
   const [questionText, setQuestionText] = useState('');
@@ -16,26 +18,26 @@ const TeacherQuestions = () => {
 
   const handleSave = () => {
     if(!questionText){
-        setError("Please fill the question field");
+        setError("*Please fill the question field");
         return;
     }
     let answer;
     if (questionType === 'MCQ') {
       answer = mcqOptions[correctMcqOption];
       if (!answer) {
-        setError('Please provide a correct answer for MCQ.');
+        setError(' *Please provide a correct options for MCQ.');
         return;
       }
     } else if (questionType === 'FIB') {
       answer = fibAnswer;
       if (!answer) {
-        setError('Please provide an answer for Fill in the Blank.');
+        setError('*Please provide an answer for Fill in the Blank.');
         return;
       }
     } else if (questionType === 'Numeric') {
       answer = numericAnswer;
       if (!answer) {
-        setError('Please provide a numeric answer.');
+        setError('*Please provide a numeric answer.');
         return;
       }
     }
@@ -55,10 +57,11 @@ const TeacherQuestions = () => {
   };
 
   return (
-    <div>
+    <div >
+      <div className='dashboard-container'>
       <h1>Teacher's Question Page</h1>
       <div>
-        <label>Question Text:</label>
+        <label>Question :</label>
         <input 
           type="text" 
           value={questionText} 
@@ -90,8 +93,10 @@ const TeacherQuestions = () => {
       {questionType === 'Numeric' && (
         <Numeric answer={numericAnswer} setAnswer={setNumericAnswer} />
       )}
-      <button onClick={handleSave}>Save Question</button>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <button className='save-btn' onClick={handleSave}>Save Question</button>
+      </div>
+      
+      {error && <p className='error-msg' >{error}</p>}
       <QuestionList questions={questions} />
     </div>
   );

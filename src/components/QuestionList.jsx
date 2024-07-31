@@ -1,13 +1,13 @@
 import React from 'react';
 
 const QuestionList = ({ questions }) => (
-  <div>
+  <div className='list-container'>
     <h2>Questions List</h2>
     <ul>
       {questions.map((question, index) => (
         <li key={index}>
-          <p>Question: {question.text}</p>
-          <p>Type: {question.type}</p>
+          <h3>{question.text}</h3>
+          <p className='list-type'>Type: {question.type}</p>
           {question.type === 'MCQ' && (
             <div>
               <p>Options:</p>
@@ -18,7 +18,7 @@ const QuestionList = ({ questions }) => (
               </ul>
             </div>
           )}
-          <p>Answer: {question.answer}</p>
+          <p className='list-ans'>Answer: {question.answer}</p>
         </li>
       ))}
     </ul>
