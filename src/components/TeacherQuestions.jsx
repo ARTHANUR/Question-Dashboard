@@ -12,16 +12,34 @@ const TeacherQuestions = () => {
   const [fibAnswer, setFibAnswer] = useState('');
   const [numericAnswer, setNumericAnswer] = useState('');
   const [questions, setQuestions] = useState([]);
+  const [error, setError] = useState('');
 
   const handleSave = () => {
+    if(!questionText){
+        setError("Please fill the question field");
+        return;
+    }
     let answer;
     if (questionType === 'MCQ') {
       answer = mcqOptions[correctMcqOption];
+      if (!answer) {
+        setError('Please provide a correct answer for MCQ.');
+        return;
+      }
     } else if (questionType === 'FIB') {
       answer = fibAnswer;
+      if (!answer) {
+        setError('Please provide an answer for Fill in the Blank.');
+        return;
+      }
     } else if (questionType === 'Numeric') {
       answer = numericAnswer;
+      if (!answer) {
+        setError('Please provide a numeric answer.');
+        return;
+      }
     }
+
     const newQuestion = {
       text: questionText,
       type: questionType,
@@ -29,11 +47,11 @@ const TeacherQuestions = () => {
       options: questionType === 'MCQ' ? mcqOptions : null
     };
     setQuestions([...questions, newQuestion]);
-    // Reset fields
     setQuestionText('');
     setMcqOptions(['', '', '', '']);
     setFibAnswer('');
     setNumericAnswer('');
+    setError('');
   };
 
   return (
@@ -73,6 +91,7 @@ const TeacherQuestions = () => {
         <Numeric answer={numericAnswer} setAnswer={setNumericAnswer} />
       )}
       <button onClick={handleSave}>Save Question</button>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       <QuestionList questions={questions} />
     </div>
   );
